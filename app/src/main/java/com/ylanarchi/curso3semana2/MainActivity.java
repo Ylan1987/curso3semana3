@@ -71,12 +71,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickEstrella(View v){
         Intent intent = new Intent(MainActivity.this, ReciclerViewMascotas.class);
+        ArrayList<Integer> usados = new ArrayList<Integer>();
         for (int i = 0; i < 5;i++){
-            intent.putExtra("nombre" + i, mascotas.get(i).getNombre() );
-            intent.putExtra("cantidadDeLikes" +i, mascotas.get(i).getCantidadDeLikes() );
-            intent.putExtra("foto" + i, mascotas.get(i).getFoto() );
+            int number = (int) Math.round(Math.random()*(mascotas.size()-1));
+            while (usados.contains(number)){
+                number = (int) Math.round(Math.random()*(mascotas.size()-1));
+            }
+            usados.add(number);
+            intent.putExtra("nombre" + i, mascotas.get(number).getNombre() );
+            intent.putExtra("cantidadDeLikes" +i, mascotas.get(number).getCantidadDeLikes() );
+            intent.putExtra("foto" + i, mascotas.get(number).getFoto() );
           }
         startActivity(intent);
     }
 }
-
